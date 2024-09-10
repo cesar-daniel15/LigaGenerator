@@ -1,5 +1,16 @@
-import random
-import tkinter as tk
+from customtkinter import *
+from PIL import Image
+
+app = CTk()
+app.geometry("500x400")
+
+set_appearance_mode("light")
+
+btn = CTkButton(master=app, text="Click", corner_radius=32, fg_color="#FC6A03", hover_color="#FCAE1E",)
+btn.place(relx=0.5, rely=0.5, anchor=CENTER)
+
+
+app.mainloop()
 
 # Funcao para registar as equipas que pretende sortear
 def adicionar_equipas():
