@@ -1,99 +1,82 @@
-from customtkinter import *
-from PIL import Image
+# Function to register the teams to be drawn
+def add_teams():
+    # Reads the number of teams
+    num_teams = int(input("Enter the number of teams to be drawn: "))
 
-app = CTk()
-app.geometry("500x400")
+    # Array to store the teams
+    teams = []
 
-set_appearance_mode("light")
-
-btn = CTkButton(master=app, text="Click", corner_radius=32, fg_color="#FC6A03", hover_color="#FCAE1E",)
-btn.place(relx=0.5, rely=0.5, anchor=CENTER)
-
-
-app.mainloop()
-
-# Funcao para registar as equipas que pretende sortear
-def adicionar_equipas():
-    # Lê a quantidade de equipas
-    numero_equipas = int(input("Diga o numero de equipas que deseja sortear: "))
-
-    # Array para guardar as equipas
-    equipas = []
-
-    # Loop para introduzir o nome de cada equipa
-    for i in range(numero_equipas):
+    # Loop to input each team's name
+    for i in range(num_teams):
         while True:
-            equipa = input(f"Diga o nome da equipa {i + 1}: ")
+            team = input(f"Enter the name of team {i + 1}: ")
 
-            # Verifica se a equipa já foi registada
-            if equipa in equipas:
-                print("Essa equipa já foi registada. Tente novamente.")
+            # Checks if the team has already been registered
+            if team in teams:
+                print("This team has already been registered. Please try again.")
             else:
-                equipas.append(equipa)
+                teams.append(team)
                 break
 
-    # Retonar equipas
-    return equipas
+    # Return teams
+    return teams
 
 
-equipas_adicionadas = adicionar_equipas()
-print("Lista de quipas adicionadas:", equipas_adicionadas)
+teams_added = add_teams()
+print("List of teams added:", teams_added)
 
-# Funcao para calcular automaticamente o numero de jornadas possiveis
-def calcular_jornadas(equipas):
-    # Numero total de equipes
-    numero_equipas = len(equipas)
+# Function to calculate the number of possible rounds
+def calculate_rounds(teams):
+    # Total number of teams
+    num_teams = len(teams)
 
-    # Verifica se o numero de equipas e par
-    if numero_equipas % 2 != 0:
-        equipas.append("Folga")
-        numero_equipas = numero_equipas + 1
+    # Checks if the number of teams is even
+    if num_teams % 2 != 0:
+        teams.append("Bye")  # Add a "Bye" if the number of teams is odd
+        num_teams += 1
 
-    # Numero de jornadas
-    numero_jornada = 1
+    # Number of rounds
+    round_number = 1
 
-    # Numero maximo de jornadas possiveis
-    numero_jornadas = len(equipas) - 1
+    # Maximum number of possible rounds
+    num_rounds = len(teams) - 1
 
-    # Numero de jogos por cada jornada
-    numero_jogos = len(equipas) // 2
+    # Number of games per round
+    num_games = len(teams) // 2
 
-    verificar_casa_fora = input("Existem jogos em casa e fora contra a mesma equipa? (sim/nao): ")
+    home_away = input("Are there home and away games against the same team? (yes/no): ")
 
-    if verificar_casa_fora in ["não", "n" , "Não" , "NAO",  "nao" , "Nao" , "NÃO"]:
-        print("\n PRIMEIRA VOLTA")
-        for i in range(numero_jornadas):
-            print(f"\t Jornada { i + 1 }")
-            for j in range(numero_jogos):
-                equipa1 = equipas[j]
-                equipa2 = equipas[-(j + 1)]
-                print(f"\t {equipa1} X {equipa2}")
+    if home_away in ["no", "n", "No", "NO", "no"]:
+        print("\n FIRST ROUND")
+        for i in range(num_rounds):
+            print(f"\t Round {i + 1}")
+            for j in range(num_games):
+                team1 = teams[j]
+                team2 = teams[-(j + 1)]
+                print(f"\t {team1} X {team2}")
 
-            equipas = [equipas[0]] + [equipas[-1]] + equipas[1:-1]
+            teams = [teams[0]] + [teams[-1]] + teams[1:-1]
 
-    elif verificar_casa_fora in ["sim", "s" , "Sim" , "SIM"]:
-        print("\n PRIMEIRA VOLTA")
-        for i in range(numero_jornadas):
-            print(f"\n Jornada {i + 1}")
-            for j in range(numero_jogos):
-                equipa1 = equipas[j]
-                equipa2 = equipas[-(j + 1)]
-                print(f"\t {equipa1} X {equipa2}")
+    elif home_away in ["yes", "y", "Yes", "YES"]:
+        print("\n FIRST ROUND")
+        for i in range(num_rounds):
+            print(f"\n Round {i + 1}")
+            for j in range(num_games):
+                team1 = teams[j]
+                team2 = teams[-(j + 1)]
+                print(f"\t {team1} X {team2}")
 
-            equipas = [equipas[0]] + [equipas[-1]] + equipas[1:-1]
+            teams = [teams[0]] + [teams[-1]] + teams[1:-1]
 
-        print("\n SEGUNDA VOLTA")
-        for i in range(numero_jornadas):
-            print(f"\n Jornada {i + 1 + numero_jornadas}:")
-            for j in range(numero_jogos):
-                equipa1 = equipas[-(j + 1)]
-                equipa2 = equipas[j]
-                print(f"\t {equipa1} X {equipa2}")
+        print("\n SECOND ROUND")
+        for i in range(num_rounds):
+            print(f"\n Round {i + 1 + num_rounds}:")
+            for j in range(num_games):
+                team1 = teams[-(j + 1)]
+                team2 = teams[j]
+                print(f"\t {team1} X {team2}")
 
-            equipas = [equipas[0]] + [equipas[-1]] + equipas[1:-1]
-
-
-jornadas = calcular_jornadas(equipas_adicionadas)
+            teams = [teams[0]] + [teams[-1]] + teams[1:-1]
 
 
-
+rounds = calculate_rounds(teams_added)

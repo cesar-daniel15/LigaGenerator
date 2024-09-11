@@ -1,7 +1,7 @@
 # main_window.py
 from customtkinter import *
 from PIL import Image
-from dashboard import dashboard_window
+from dashboard_window import dashboard_window
 
 
 # Calculate the center of screen
@@ -36,12 +36,12 @@ set_appearance_mode("light")
 
 centerWindow(app)
 
-my_font = CTkFont(family="Helvetica", size=18, weight="bold")
+text_font = CTkFont(family="Helvetica", size=18)
 title_font = CTkFont(family="Helvetica", size=25, weight="bold")
 image_path = r"C:/Users/asus/Documents/GitHub/LigaGenerator/assets/icons/icon.png"
 
 # Button
-btn = CTkButton(master=app, text="Launch", corner_radius=32, fg_color="#FC6A03", hover_color="#FF8C42", font=my_font, width=150, height=50, command=showLoader)
+btn = CTkButton(master=app, text="Launch", corner_radius=32, fg_color="#FC6A03", hover_color="#FF8C42", font= text_font, width=150, height=50, command=showLoader)
 btn.place(relx=0.5, rely=0.8, anchor=CENTER)
 
 # Title
