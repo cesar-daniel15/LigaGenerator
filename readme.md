@@ -19,4 +19,4 @@
 2. **Run the main file**:
 
     ```bash
-   python main.py
+   python app.py
